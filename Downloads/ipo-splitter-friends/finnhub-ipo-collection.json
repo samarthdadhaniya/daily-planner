@@ -1,0 +1,44 @@
+{
+    "info": {
+        "_postman_id": "finnhub-ipo-calendar-collection",
+        "name": "Finnhub IPO Calendar API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Get IPO Calendar",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "https://finnhub.io/api/v1/ipo/calendar?from={{fromDate}}&to={{toDate}}&token={{finnhubApiKey}}",
+                    "host": [
+                        "finnhub.io"
+                    ],
+                    "path": [
+                        "api",
+                        "v1",
+                        "ipo",
+                        "calendar"
+                    ],
+                    "query": [
+                        {
+                            "key": "from",
+                            "value": "{{fromDate}}"
+                        },
+                        {
+                            "key": "to",
+                            "value": "{{toDate}}"
+                        },
+                        {
+                            "key": "token",
+                            "value": "{{finnhubApiKey}}"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "event": []
+}
