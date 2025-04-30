@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'admin_page.dart';
 import 'operator_page.dart';
-import 'material_model.dart';
 
 void main() {
-  runApp(MaterialApp(home: LoginPage()));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Material Costing App',
+    theme: ThemeData(primarySwatch: Colors.indigo),
+    home: LoginPage(),
+  ));
 }
 
 class LoginPage extends StatelessWidget {
@@ -13,12 +17,20 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login as Admin/Operator')),
+      appBar: AppBar(title: Text('Material Costing Login')),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(controller: roleController, decoration: InputDecoration(labelText: 'Enter role')),
+            TextField(
+              controller: roleController,
+              decoration: InputDecoration(
+                labelText: 'Enter role (admin/operator)',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 String role = roleController.text.trim().toLowerCase();
@@ -29,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 }
               },
               child: Text('Login'),
-            )
+            ),
           ],
         ),
       ),

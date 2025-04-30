@@ -11,30 +11,29 @@ class _OperatorPageState extends State<OperatorPage> {
   final quantityController = TextEditingController();
   final processingCostController = TextEditingController();
   final marginController = TextEditingController();
-
   String result = '';
 
   void calculate() {
-    final selected = materials[selectedIndex];
+    final material = materials[selectedIndex];
     final qty = int.tryParse(quantityController.text) ?? 0;
     final procCost = double.tryParse(processingCostController.text) ?? 0;
     final margin = double.tryParse(marginController.text) ?? 0;
 
-    if (qty > selected.stock) {
+    if (qty > material.stock) {
       setState(() => result = 'Not enough stock!');
       return;
     }
 
-    double rawCost = qty * selected.unitCost;
+    double rawCost = qty * material.unitCost;
     double mfgCost = rawCost + procCost;
     double finalPrice = mfgCost + margin;
 
     setState(() {
-      selected.stock -= qty;
+      material.stock -= qty;
       result = 'Raw Cost: ₹${rawCost.toStringAsFixed(2)}\n'
                'Mfg Cost: ₹${mfgCost.toStringAsFixed(2)}\n'
                'Selling Price: ₹${finalPrice.toStringAsFixed(2)}\n'
-               'Remaining Stock: ${selected.stock}';
+               'Remaining Stock: ${material.stock}';
     });
   }
 
@@ -42,13 +41,13 @@ class _OperatorPageState extends State<OperatorPage> {
   Widget build(BuildContext context) {
     if (materials.isEmpty) {
       return Scaffold(
-        appBar: AppBar(title: Text('Operator Panel')),
+        appBar: AppBar(title: Text('Operator Dashboard')),
         body: Center(child: Text('No materials available.')),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Operator Panel')),
+      appBar: AppBar(title: Text('Operator Dashboard')),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -63,8 +62,9 @@ class _OperatorPageState extends State<OperatorPage> {
             TextField(controller: quantityController, decoration: InputDecoration(labelText: 'Quantity Used')),
             TextField(controller: processingCostController, decoration: InputDecoration(labelText: 'Processing Cost')),
             TextField(controller: marginController, decoration: InputDecoration(labelText: 'Desired Margin')),
+            SizedBox(height: 10),
             ElevatedButton(onPressed: calculate, child: Text('Calculate')),
-            SizedBox(height: 16),
+            SizedBox(height: 10),
             Text(result),
           ],
         ),
